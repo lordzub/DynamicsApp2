@@ -19,6 +19,7 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class QuestionsPage {
 StudentNumber:string;
+StudentType:string;
 recommendation_home: string;
 public Data: Array<any> = [];
 public QuesNo: Array<any> = [];
@@ -69,6 +70,7 @@ public itemRef: firebase.database.Reference = firebase.database().ref('/Question
 loaduserdetails() {
   this.userservice.getuserdetails().then((res: any) => {
     this.StudentNumber = res.StudentNumber;
+    this.StudentType= res.Type;
       console.log(this.StudentNumber);
   })
 }

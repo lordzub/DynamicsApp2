@@ -37,7 +37,9 @@ export class AddquestionPage {
   QuesNo: number;
   recommendation_adding: string;
   Description: String;
-
+  TypeOfHelp: String;
+  PplNot: String;
+  Anon:boolean;
 
   firedata = firebase.database().ref('/Questions');
   firestore = firebase.storage();
@@ -318,7 +320,7 @@ postQuestion()
     //sound: isAndroid? 'file://sound.mp3': 'file://beep.caf',
     //data: { secret: key }
   });
-  
+
   firebase.database().ref('Questions/Tutorial:'+this.TutNo+"/Question No: "+this.QuesNo+"/").set({
    Tutno: this.TutNo,
    QuesNo: this.QuesNo,
@@ -329,7 +331,11 @@ postQuestion()
    WorkDataUrl3: this.WorkDataUrl3,
    WorkDataUrl4: this.WorkDataUrl4,
    WorkDataUrl5: this.WorkDataUrl5,
-   PostedBy: this.StudentNumber
+   PostedBy: this.StudentNumber,
+   TypeOfHelp: this.TypeOfHelp,
+   Notify: this.PplNot,
+   Anon: this.Anon,
+   Resolved: false
   });
 
 this.navCtrl.pop();

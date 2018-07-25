@@ -27,6 +27,8 @@ public myStuff:string;
 public Ans:any;
 public AnsStudent:any;
  StudentNumber:String;
+ Type: String;
+ Resolved:boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserProvider)
   {
@@ -106,26 +108,37 @@ var itemRef = firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+'/
 
     });
 
-
-
-
-
-
-
-
-
-
-
-
 //console.log(this.Data.StudentNumber);
 
 this.loaduserdetails();
   }
 
 
+  onSelectChange()
+  {
+    firebase.database().ref('Questions/Tutorial:'+this.question.Tutno+'/Question No: '+this.question.QuesNo).set(
+      {
+        Resolved: true
+      }
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
   loaduserdetails() {
     this.userservice.getuserdetails().then((res: any) => {
       this.StudentNumber = res.StudentNumber;
+      this.Type = res.Type;
         console.log(this.StudentNumber);
     })
   }

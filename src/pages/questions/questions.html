@@ -6,8 +6,8 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title start>All Queries</ion-title>
+  <ion-navbar *ngIf = 'this.StudentType == "Student"'>
+    <ion-title start>Your Questions</ion-title>
 
 <ion-buttons end >
   <button ion-button (click)="openAdQuestionsPage()" large>
@@ -15,6 +15,11 @@
   </button>
 </ion-buttons>
   </ion-navbar>
+  <ion-navbar *ngIf = 'this.StudentType == "Tutor"'>
+    <ion-title start>All Queries</ion-title>
+
+  </ion-navbar>
+
 
 <form id="home-form6">
   <ion-item id="home-input8">
@@ -35,7 +40,7 @@
   </h1>
 
 
-
+<ion-item *ngIf = 'this.StudentType == "Tutor"' >
   <ion-card *ngFor="let item of Data; let i = index" [attr.data-index]="i"  >
 <div class="spacer" style="width:300px;height:24px;" id="home-spacer2"></div>
 
@@ -46,8 +51,8 @@
 <ion-card (click)="showQuestion(i)">
 
       <ion-item>
-      <div><ion-icon name="paw" > Tutorial: {{item.Tutno}} </ion-icon></div>
-      <ion-icon name="finger-print" > Question: {{item.QuesNo}} </ion-icon>
+      <div><ion-icon name="paw" > Type of help: </ion-icon></div>
+      <ion-icon name="finger-print" > {{item.TypeOfHelp}}</ion-icon>
 
 
     <ion-thumbnail item-left>
@@ -57,10 +62,11 @@
 
     <ion-item>
       <h2><em>{{item.Description}}</em></h2>
-      <div> <ion-note item-right> Posted by : {{item.PostedBy}}</ion-note> </div>
 
 
-    </ion-item>
-
-  </ion-card>
+    <ion-note  *ngIf="item.Anon" >Posted by : anonymous</ion-note>
+    <ion-note   *ngIf="!item.Anon"> Posted by :{{item.PostedBy}}</ion-note>
+ </ion-item>
  </ion-card>
+</ion-card>
+  </ion-item>

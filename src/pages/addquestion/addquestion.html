@@ -68,17 +68,20 @@
 
 <form>
 <ion-item id="editDocument-select2">
+
+
+
     <ion-label>
       Type of help
     </ion-label>
-    <ion-select name="">
-      <ion-option>
+    <ion-select [(ngModel)]="TypeOfHelp" name = "type">
+      <ion-option value = "Conceptual Issue">
         Conceptual Issue
       </ion-option>
-      <ion-option>
+      <ion-option  value = "Finding my mistake">
           Finding my mistake
         </ion-option>
-        <ion-option>
+        <ion-option value = "Other">
           Other
       </ion-option>
     </ion-select>
@@ -87,24 +90,25 @@
     <ion-label>
       Who to notify
     </ion-label>
-    <ion-select name="">
-      <ion-option>
+    <ion-select [(ngModel)]="PplNot" name = "people">
+      <ion-option value = "Only Bruce Kloot">
         Only Bruce Kloot
       </ion-option>
-      <ion-option>
+      <ion-option value = "Only Tutors">
         Only Tutors
       </ion-option>
-      <ion-option>
+      <ion-option value = "All">
         All
       </ion-option>
     </ion-select>
   </ion-item>
-  <ion-item id="editDocument-toggle4">
-    <ion-label>
-      Post as anonymous
-    </ion-label>
-    <ion-toggle color="positive" checked="false"></ion-toggle>
-  </ion-item>
+
+
+
+  <ion-item>
+      <ion-label>Post as anonymous</ion-label>
+      <ion-toggle [(ngModel)]="Anon" name = "A"></ion-toggle>
+    </ion-item>
 </form>
 
   <button ion-button block  (click)="postQuestion()">Post Question</button>

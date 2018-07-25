@@ -42,6 +42,11 @@
 <div><strong>Query</strong></div>
     <h1> {{this.question.Description}}</h1>
   </ion-card-content>
+
+  <ion-item *ngIf = 'this.Type =="Tutor"'>
+      <ion-label>Resolved</ion-label>
+      <ion-toggle [(ngModel)]="Resolved" name = "A" (ionChange)="onSelectChange()"></ion-toggle>
+    </ion-item>
   </ion-card>
 
 
