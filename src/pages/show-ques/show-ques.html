@@ -1,0 +1,85 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      Tut: {{this.question.Tutno}} |
+     Question: {{this.question.QuesNo}}
+   </ion-title>
+
+  </ion-navbar>
+
+  <form id="home-form6">
+    <ion-item id="home-input8">
+
+    <ion-input type="text" placeholder="Help us help you: add feedback!" [(ngModel)]="recommendation_document" name="first"></ion-input>
+
+    <button ion-button item-right  (click)="sendFeedback()"> <ion-icon name="paper-plane"> </ion-icon> </button>
+    </ion-item>
+  </form>
+
+</ion-header>
+
+
+<ion-content padding class="background">
+
+  <ion-card>
+
+    <ion-card-content>
+      <h1>Question Picture:</h1>
+
+<img style="width:90%; display: center" src="{{  this.question.QuesUrl}}"/>
+
+<div class="spacer" style="width:300px;height:32px;" id="home-spacer2"></div>
+
+    <h1>Work Picture:</h1>
+<img style="width:90%; display: center;" src="{{  this.question.WorkDataUrl1}}"/>
+
+<div class="spacer" style="width:300px;height:32px;" id="home-spacer2"></div>
+
+    </ion-card-content>
+    <ion-card-content align="center">
+<div><strong>Query</strong></div>
+    <h1> {{this.question.Description}}</h1>
+  </ion-card-content>
+  </ion-card>
+
+
+
+  <ion-card *ngFor = 'let Ans of Anss ; let i = index' [attr.data-index]="i">
+  <ion-card-content>
+  <ion-note>
+  {{NoOfA[i]}}
+  </ion-note>
+
+  <h2>
+    {{Anss[i]}}
+  </h2>
+</ion-card-content>
+
+
+  <button ion-button *ngIf ='NoOfA[i]== this.StudentNumber' color="danger" (click)="deleteQuestion(i)" >
+  <ion-icon name="backspace" icon-end>  Delete</ion-icon>
+ </button>
+
+</ion-card>
+
+
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+
+
+    <ion-item>
+      <textarea #myInput id="myInput" rows="1" maxLength="500" (keyup)="resize()" [(ngModel)]="myStuff"></textarea>
+      <ion-icon item-end name="paper-plane" (click)="SendAns()"></ion-icon>
+    </ion-item>
+
+
+
+
+  </ion-toolbar>
+</ion-footer>
