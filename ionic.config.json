@@ -1,8 +1,8 @@
 {
   "name": "ionic3chat",
-  "app_id": "aafd910b",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular",
+  "pro_id": "aafd910b"
 }

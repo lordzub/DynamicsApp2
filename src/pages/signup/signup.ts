@@ -20,17 +20,22 @@ export class SignupPage {
     password: '',
     StudentNumber: ''
   }
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserProvider,
               public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
   }
 
+
+
   signup() {
+
+
     var toaster = this.toastCtrl.create({
       duration: 3000,
       position: 'bottom'
     });
     if (this.newuser.email == '' || this.newuser.password == '' || this.newuser.StudentNumber == '') {
-      toaster.setMessage('All fields are required dude');
+      toaster.setMessage('All fields are required');
       toaster.present();
     }
     else if (this.newuser.password.length < 7) {
@@ -38,10 +43,12 @@ export class SignupPage {
       toaster.present();
     }
     else {
+      
       let loader = this.loadingCtrl.create({
         content: 'Please wait'
       });
       loader.present();
+
       this.userservice.adduser(this.newuser).then((res: any) => {
         loader.dismiss();
         if (res.success)

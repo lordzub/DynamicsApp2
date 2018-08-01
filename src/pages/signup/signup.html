@@ -25,8 +25,9 @@
        <ion-item>
            <ion-input type="text" placeholder="Student Number" [(ngModel)]="newuser.StudentNumber"></ion-input>
        </ion-item>
-      <button ion-button block round outline color="light" (click)="signup()">Sign Up</button>
+      <button ion-button *ngIf = 'newuser.email.includes("wf.uct.ac.za") ' block round outline color="light" (click)="signup()">Sign Up</button>
       <button ion-button full clear color="light" (click)="goback()">Go Back</button>
+      
      </ion-list>
   </ion-card-content>
 </ion-card>

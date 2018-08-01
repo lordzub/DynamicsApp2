@@ -22,7 +22,7 @@ StudentNumber:string;
 StudentType:string;
 recommendation_home: string;
 public Data: Array<any> = [];
-public QuesNo: Array<any> = [];
+public UID: Array<any> = [];
 
 public itemRef: firebase.database.Reference = firebase.database().ref('/Questions');
 
@@ -36,21 +36,24 @@ public itemRef: firebase.database.Reference = firebase.database().ref('/Question
   ionViewDidLoad() {
     this.itemRef.on('value', itemSnapshot => {
       this.Data = [];
-      this.QuesNo=[];
+      this.UID=[];
       itemSnapshot.forEach( itemSnap => {
         var key = itemSnap.key;
       //  this.TutNo.push(itemSnap.key);
-
+        this.UID.push(key);
+        //console.log(this.UID);
         var QuestionRef = firebase.database().ref('Questions/'+key+'/');
         QuestionRef.on('value', Snapshot =>
       {
+          this.Data.push(Snapshot.val());
+          console.log(this.Data);
 
        Snapshot.forEach( Snap => {
          var key1 = Snap.key;
-         this.QuesNo.push(key1);
-         console.log(key1);
+        // this.QuesNo.push(key1);
+      //   console.log(key1);
 
-         this.Data.push(Snap.val());
+
       //   console.log(this.TutNo);
       });
       });
@@ -61,7 +64,10 @@ public itemRef: firebase.database.Reference = firebase.database().ref('/Question
       });
 
 
-
+   this.Data.reverse();
+   this.UID.reverse();
+   console.log('Data'+this.Data);
+   console.log('UID'+this.UID);
   });
   this.loaduserdetails();
 }
@@ -89,7 +95,8 @@ showQuestion(index: number)
   //console.log(index);
   //console.log(this.Data[index]);
   this.navCtrl.push(ShowQuesPage, {
-    question: this.Data[index]
+    question: this.Data[index],
+    key: this.UID[index]
 });
 }
 sendFeedback(){
@@ -103,7 +110,7 @@ sendFeedback(){
 
 deleteQuestion(i)
 {
-  firebase.database().ref('Questions/Tutorial:'+this.Data[i].Tutno+'/Question No: '+this.Data[i].QuesNo).remove();
+  firebase.database().ref('Questions/'+this.UID[i]).remove();
   console.log("Deleted")
 }
 }

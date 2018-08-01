@@ -39,7 +39,7 @@ export class AddquestionPage {
   Description: String;
   TypeOfHelp: String;
   PplNot: String;
-  Anon:boolean;
+  Anon:boolean = false;
 
   firedata = firebase.database().ref('/Questions');
   firestore = firebase.storage();
@@ -321,7 +321,7 @@ postQuestion()
     //data: { secret: key }
   });
 
-  firebase.database().ref('Questions/Tutorial:'+this.TutNo+"/Question No: "+this.QuesNo+"/").set({
+  firebase.database().ref('Questions/').push({
    Tutno: this.TutNo,
    QuesNo: this.QuesNo,
    Description:this.Description,

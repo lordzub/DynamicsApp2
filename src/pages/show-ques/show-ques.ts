@@ -21,7 +21,8 @@ export class ShowQuesPage {
 public Anss: Array<any> = [];
 public NoOfA: Array<any> = [];
 public UID: Array<any> = [];
-public question:any;
+public item:any;
+public dbRef:any;
 recommendation_document: string;
 public myStuff:string;
 public Ans:any;
@@ -32,8 +33,10 @@ public AnsStudent:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserProvider)
   {
-this.question = navParams.get('question');
-console.log(this.question);
+this.item = navParams.get('question');
+this.dbRef = navParams.get('key');
+
+console.log(this.item);
 
   }
 
@@ -41,7 +44,7 @@ console.log(this.question);
     console.log('ionViewDidLoad ShowQuesPage');
 
 
-var itemRef = firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+'/');
+var itemRef = firebase.database().ref('Answers/Tutorial:'+this.item.Tutno+'/');
     itemRef.on('value', itemSnapshot => {
       this.Anss = [];
       this.NoOfA =[];
@@ -51,8 +54,8 @@ var itemRef = firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+'/
       //  var key = itemSnap.key;
       //  this.TutNo.push(itemSnap.key);
 
-        var QuestionRef = firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+'/Question No: '+this.question.QuesNo);
-        QuestionRef.on('value', Snapshot =>
+        var itemRef = firebase.database().ref('Answers/Tutorial:'+this.item.Tutno+'/Question No: '+this.item.QuesNo);
+        itemRef.on('value', Snapshot =>
       {
 
        Snapshot.forEach( Snap => {
@@ -63,8 +66,8 @@ var itemRef = firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+'/
 
 
 
-         var QuestionRef = firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+'/Question No: '+this.question.QuesNo+'/'+key1);
-         QuestionRef.on('value', Snapshot =>
+         var itemRef = firebase.database().ref('Answers/Tutorial:'+this.item.Tutno+'/Question No: '+this.item.QuesNo+'/'+key1);
+         itemRef.on('value', Snapshot =>
        {
 
 
@@ -74,8 +77,8 @@ var itemRef = firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+'/
           console.log(key2);
 
 
-          var QuestionRef = firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+'/Question No: '+this.question.QuesNo+'/'+key1+'/'+key2);
-          QuestionRef.on('value', Snapshot =>
+          var itemRef = firebase.database().ref('Answers/Tutorial:'+this.item.Tutno+'/Question No: '+this.item.QuesNo+'/'+key1+'/'+key2);
+          itemRef.on('value', Snapshot =>
         {
 
 
@@ -116,7 +119,7 @@ this.loaduserdetails();
 
   onSelectChange()
   {
-    firebase.database().ref('Questions/Tutorial:'+this.question.Tutno+'/Question No: '+this.question.QuesNo).set(
+    firebase.database().ref('Questions/'+this.dbRef).set(
       {
         Resolved: true
       }
@@ -144,10 +147,6 @@ this.loaduserdetails();
   }
 
 
-  resize() {
-    this.myInput.nativeElement.style.height = 'auto';
-      this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px';
-  }
 
   sendFeedback(){
     firebase.database().ref('recommendation_document').push({
@@ -160,7 +159,7 @@ this.loaduserdetails();
 
   deleteQuestion(i)
   {
-    firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+'/Question No: '+this.question.QuesNo+'/'+this.StudentNumber+'/'+this.UID[i]).remove();
+    firebase.database().ref('Answers/Tutorial:'+this.item.Tutno+'/Question No: '+this.item.QuesNo+'/'+this.StudentNumber+'/'+this.UID[i]).remove();
   }
 
 
@@ -168,7 +167,7 @@ this.loaduserdetails();
 SendAns()
 {
 
-  firebase.database().ref('Answers/Tutorial:'+this.question.Tutno+"/Question No: "+this.question.QuesNo+"/"+this.StudentNumber).push({
+  firebase.database().ref('Answers/Tutorial:'+this.item.Tutno+"/Question No: "+this.item.QuesNo+"/"+this.StudentNumber).push({
    Ans: this.myStuff,
    StudentNumber: this.StudentNumber
   });
